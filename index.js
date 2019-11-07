@@ -4,6 +4,11 @@ var express = require("express")
 var fetchUrl = require("fetch").fetchUrl
 var cheerio = require('cheerio')
 var cors = require('cors')
+var fs = require('fs')
+var path = require('path')
+var dateFormat = require('dateformat')
+
+const rscsFolder = path.join(__dirname, 'rsc')
 
 var app = express()
 
@@ -23,10 +28,12 @@ function initFFAAA()
         //get nb clubs
         var textNbClubs = parsedHTML(".listing_clubs").first().find('h3').first().text()
         var nbclubs = textNbClubs.split('(')[1].split(' ')[0].trim()
-        requestClubsFFAAA.date = new Date()
+        requestClubsFFAAA.date = dateFormat(new Date(),"yyyy-mm-dd-h-MM-ss")
         requestClubsFFAAA.clubs_length = nbclubs
 
         console.log("requestClubsFFAAA", requestClubsFFAAA)
+        var fileResult = path.join(rscsFolder, `requestClubsFFAAA_${requestClubsFFAAA.date}.json`)
+        fs.writeFile(fileResult, JSON.stringify(requestClubsFFAAA), function(){console.log("file should be created")})
     })
 }
 

@@ -20,8 +20,11 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
     "cors": "^2.8.5",
+    "dateformat": "^3.0.3",
     "express": "^4.17.1",
     "fetch": "^1.1.0",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7",
     "save": "^2.4.0"
   }
 }
