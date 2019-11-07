@@ -7,6 +7,10 @@ var cors = require('cors')
 var fs = require('fs')
 var path = require('path')
 var dateFormat = require('dateformat')
+var promisify = require('util').promisify
+
+const readFile = promisify(fs.readFile)
+const writeFile = promisify(fs.writeFile)
 
 const rscsFolder = path.join(__dirname, 'rsc')
 
@@ -34,15 +38,30 @@ function initFFAAA()
         console.log("requestClubsFFAAA", requestClubsFFAAA)
         var filename = `requestClubsFFAAA_${requestClubsFFAAA.date}.json`
         var fileResult = path.join(rscsFolder, filename)
-        fs.writeFile(fileResult, JSON.stringify(requestClubsFFAAA), function(){console.log("file should be created", filename)})
+        writeFile(fileResult, JSON.stringify(requestClubsFFAAA)).then(function()
+        {
+            console.log("file should be created", filename)
+            return filename
+        })
     })
 }
 
-initFFAAA()
-
+var latestFile = initFFAAA()
+console.log("latestFile", latestFile)
 
 app.get('/', function (req, res) {
-    res.send(`Hello, vous êtes à la racine de ce serveur dédié à la pratique de l'aikido en itinérance !`)
+    if(latestFile)
+    {
+        readFile(latestFile).then(function(data){
+            var latestFFAAAdata = JSON.parse(data)
+            res.send(`Hello, vous êtes à la racine de ce serveur dédié à la pratique de l'aikido en itinérance ! 
+            D'après le site de la FFAAA en date du ${latestFFAAAdata.date} il y a ${latestFFAAAdata.clubs_length} clubs en France.`)
+        })
+    }
+    else
+    {
+        res.send(`pas possible de lire le dernier fichier... ${latestFile}`)
+    }
   })
 
   app.listen(port, function () {
