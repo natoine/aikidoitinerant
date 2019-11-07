@@ -1,0 +1,25 @@
+{
+  "name": "aikidoitinerant",
+  "version": "1.0.0",
+  "description": "une app pour lister les clubs d'aikido en France et leurs politiques d'accès aux itinérants",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/natoine/aikidoitinerant.git"
+  },
+  "author": "natoine",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/natoine/aikidoitinerant/issues"
+  },
+  "homepage": "https://github.com/natoine/aikidoitinerant#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "save": "^2.4.0"
+  }
+}
