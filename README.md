@@ -10,4 +10,4 @@ Apparemment on peut construire les requêtes GET http avec les paramètres ( ? )
 - ville prend en majuscule le nom de la ville
 - enfant si égal 1 on cherche les clubs avec des cours enfants
 - adulte si égal 1 on cherche les clubs avec des cours adultes
-- n_page égal le numéro de page de résultat (  )
+- n_page égal le numéro de page de résultat ( apparemment 12 résultats par page maximum )
