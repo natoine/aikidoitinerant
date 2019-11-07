@@ -9,7 +9,7 @@ var app = express()
 app.use(cors())
 
 app.get('/', function (req, res) {
-    res.send(`Hello, vous êtes à la racine de ce serveur dédié à la pratique de l'aikido en itinérance ! allez voir /index`)
+    res.send(`Hello, vous êtes à la racine de ce serveur dédié à la pratique de l'aikido en itinérance !`)
   })
 
   app.listen(port, function () {
