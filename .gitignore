@@ -8,6 +8,9 @@ yarn-error.log*
 ## lock
 package-lock.json
 
+## requests data created
+rsc/*.json
+
 # Runtime data
 pids
 *.pid

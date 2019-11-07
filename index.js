@@ -32,8 +32,9 @@ function initFFAAA()
         requestClubsFFAAA.clubs_length = nbclubs
 
         console.log("requestClubsFFAAA", requestClubsFFAAA)
-        var fileResult = path.join(rscsFolder, `requestClubsFFAAA_${requestClubsFFAAA.date}.json`)
-        fs.writeFile(fileResult, JSON.stringify(requestClubsFFAAA), function(){console.log("file should be created")})
+        var filename = `requestClubsFFAAA_${requestClubsFFAAA.date}.json`
+        var fileResult = path.join(rscsFolder, filename)
+        fs.writeFile(fileResult, JSON.stringify(requestClubsFFAAA), function(){console.log("file should be created", filename)})
     })
 }
 
