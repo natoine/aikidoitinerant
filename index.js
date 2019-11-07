@@ -15,13 +15,18 @@ function initFFAAA()
     //console.log("init FFAAA", "initiating FFAAA")
     var url = "https://www.aikido.com.fr/trouver-un-club/?rid_discipline=2"
     fetchUrl(url , function(error, meta, body){
+        var requestClubsFFAAA = {}
+
         var html = body.toString()
         var parsedHTML = cheerio.load(html)
 
         //get nb clubs
         var textNbClubs = parsedHTML(".listing_clubs").first().find('h3').first().text()
         var nbclubs = textNbClubs.split('(')[1].split(' ')[0].trim()
-        
+        requestClubsFFAAA.date = new Date()
+        requestClubsFFAAA.clubs_length = nbclubs
+
+        console.log("requestClubsFFAAA", requestClubsFFAAA)
     })
 }
 
