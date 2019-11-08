@@ -40,6 +40,14 @@ function initFFAAA()
         var nbpage = Math.ceil( nbclubs / 15 )
         console.log("nb page", nbpage)
 
+        requestClubsFFAAA.clubs = []
+
+        for(cptpages = 0 ; cptpages <= nbpage ; cptpages++)
+        {
+            var urlpage = `${url}&n_page=${cptpages}`
+            requestClubsFFAAA.clubs = requestClubsFFAAA.clubs.concat(getClubs(urlpage))
+        }
+
         console.log("requestClubsFFAAA", requestClubsFFAAA)
         var filename = `requestClubsFFAAA_${requestClubsFFAAA.date}.json`
         var fileResult = path.join(rscsFolder, filename)
@@ -50,6 +58,14 @@ function initFFAAA()
         })
     })
 }
+
+//extract clubs from FFAAA page
+function getClubs(url){
+    console.log("getclubs url", url)
+    return []
+}
+
+
 
 var latestFile = initFFAAA()
 console.log("latestFile", latestFile)
