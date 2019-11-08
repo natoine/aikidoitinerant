@@ -70,12 +70,25 @@ function getClubs(url){
         clubs.each(function(i, club){
             var parsedClub = cheerio.load(club)
             var urlClub = parsedClub(".btn-plus").attr('href')
-            console.log("url club", `${i}eme club url : ${urlClub}`)
+            getClubData(urlClub)
         })
     })
     return []
 }
-
+//extract one club data
+function getClubData(url){
+    console.log("getClubData url club", `${url}`)
+    fetchUrl(url , function(error, meta, body){
+        if(error) console.log(`error on ${url}`)
+        else
+        {
+            var html = body.toString()
+            var parsedHTML = cheerio.load(html)
+            var ficheClub = parsedHTML(".txt_fiche_club")
+            console.log(`fiche club ${url}`, ficheClub.text()) 
+        }
+    })
+}
 
 
 var latestFile = initFFAAA()
