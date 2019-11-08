@@ -7,10 +7,10 @@ var cors = require('cors')
 var fs = require('fs')
 var path = require('path')
 var dateFormat = require('dateformat')
-var promisify = require('util').promisify
+var util = require('util')
 
-const readFile = promisify(fs.readFile)
-const writeFile = promisify(fs.writeFile)
+const readFile = util.promisify(fs.readFile)
+const writeFile = util.promisify(fs.writeFile)
 
 const rscsFolder = path.join(__dirname, 'rsc')
 
@@ -22,6 +22,7 @@ app.use(cors())
 function initFFAAA()
 {
     //console.log("init FFAAA", "initiating FFAAA")
+    //rid_discipline = 2 means aikido
     var url = "https://www.aikido.com.fr/trouver-un-club/?rid_discipline=2"
     fetchUrl(url , function(error, meta, body){
         var requestClubsFFAAA = {}
@@ -34,6 +35,10 @@ function initFFAAA()
         var nbclubs = textNbClubs.split('(')[1].split(' ')[0].trim()
         requestClubsFFAAA.date = dateFormat(new Date(),"yyyy-mm-dd-h-MM-ss")
         requestClubsFFAAA.clubs_length = nbclubs
+
+        //15 result per page
+        var nbpage = Math.ceil( nbclubs / 15 )
+        console.log("nb page", nbpage)
 
         console.log("requestClubsFFAAA", requestClubsFFAAA)
         var filename = `requestClubsFFAAA_${requestClubsFFAAA.date}.json`
