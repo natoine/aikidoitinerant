@@ -1,4 +1,4 @@
-const port     = process.env.PORT || 8080
+'use strict'
 
 var express = require("express")
 var fetchUrl = require("fetch").fetchUrl
@@ -13,6 +13,8 @@ const readFile = util.promisify(fs.readFile)
 const writeFile = util.promisify(fs.writeFile)
 
 const rscsFolder = path.join(__dirname, 'rsc')
+
+const port     = process.env.PORT || 8080
 
 var app = express()
 
@@ -42,7 +44,7 @@ function initFFAAA()
 
         requestClubsFFAAA.clubs = []
 
-        for(cptpages = 1 ; cptpages <= nbpage ; cptpages++)
+        for(var cptpages = 1 ; cptpages <= nbpage ; cptpages++)
         {
             var urlpage = `${url}&n_page=${cptpages}`
             requestClubsFFAAA.clubs = requestClubsFFAAA.clubs.concat(getClubs(urlpage))
