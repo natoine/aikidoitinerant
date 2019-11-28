@@ -47,7 +47,7 @@ function initFFAAA()
         for(var cptpages = 1 ; cptpages <= nbpage ; cptpages++)
         {
             var urlpage = `${url}&n_page=${cptpages}`
-            requestClubsFFAAA.clubs = requestClubsFFAAA.clubs.concat(getClubs(urlpage))
+            getClubs(requestClubsFFAAA.clubs, urlpage)
         }
 
         console.log("requestClubsFFAAA", requestClubsFFAAA)
@@ -62,7 +62,7 @@ function initFFAAA()
 }
 
 //extract clubs from FFAAA page
-function getClubs(url){
+function getClubs(listeClubs, url){
     console.log("getclubs url", url)
     fetchUrl(url , function(error, meta, body){
         var html = body.toString()
@@ -70,9 +70,11 @@ function getClubs(url){
         var clubs = parsedHTML(".item_club")
         console.log("nb clubs in getClubs", `${url} nbclubs : ${clubs.length}`)
         clubs.each(function(i, club){
+            var jsonClub = {}
             var parsedClub = cheerio.load(club)
-            var urlClub = parsedClub(".btn-plus").attr('href')
-            getClubData(urlClub)
+            jsonClub.urlClub = parsedClub(".btn-plus").attr('href')
+            getClubData(jsonClub.urlClub)
+            listeClubs.push(jsonClub)
         })
     })
     return []
